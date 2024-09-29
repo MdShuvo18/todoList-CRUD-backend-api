@@ -11,7 +11,8 @@ app.use(express.json())
 connectDB()
 
 
-app.use('/', todoList_Route)
+app.use('/api', todoList_Route)
+app.use('/api',todoList_Route)
 
 
 app.get('/', (req, res) => {

@@ -7,8 +7,8 @@ exports.createTodo = async (req, res) => {
 
         // for multiple todos
         if (Array.isArray(todoItem)) {
-            const todos = await todoList_Schema.insertMany(todoItem)
-            return res.status(201).json({ message: "todos created successfully done" })
+            await todoList_Schema.insertMany(todoItem)
+            return res.status(201).json({ message: "todos were created successfully done" })
         } else {
             const { title, description, status, dueDate } = req.body
             if (!title) {
@@ -19,6 +19,20 @@ exports.createTodo = async (req, res) => {
             return res.status(201).json({ message: "todo created successfully done" })
         }
 
+    }
+    catch (error) {
+        console.log(error.message)
+    }
+}
+
+// get all todo
+exports.getAlltodo = async (req, res) => {
+    try {
+        const todos = await todoList_Schema.find()
+        if (todos.length === 0) {
+            return res.status(401).json({ message: "No todos found" })
+        }
+        return res.status(200).json({ "All todos": todos })
     }
     catch (error) {
         console.log(error.message)
