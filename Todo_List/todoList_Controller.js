@@ -45,7 +45,7 @@ exports.updateTodo = async (req, res) => {
     const { title, description, status, dueDate } = req.body;
 
     try {
-        
+
         const update = { $set: { title, description, status, dueDate } };
 
         const updatedTodo = await todoList_Schema.findByIdAndUpdate(id, update, {});
@@ -60,6 +60,22 @@ exports.updateTodo = async (req, res) => {
     } catch (error) {
         console.error(error.message);
         return res.status(500).json({ message: "Internal server error" });
+    }
+}
+
+// delete todo
+exports.deleteTodo = async (req, res) => {
+    const { id } = req.params
+    try {
+        const deleteTodo = await todoList_Schema.findByIdAndDelete(id)
+        if (!deleteTodo) {
+            return res.status(404).json({ message: "no todo found" })
+        }
+        return res.status(200).json({ message: "Deleted successfully" })
+
+    }
+    catch (error) {
+        console.log(error.message)
     }
 }
 
