@@ -1,5 +1,5 @@
 const express = require('express')
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 5000
 require('dotenv').config()
 const connectDB = require('./ConfigDB/mongodbURL')
 const todoList_Route=require('./Todo_List/todoList_Route')
