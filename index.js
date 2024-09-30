@@ -12,7 +12,7 @@ connectDB()
 
 
 app.use('/api', todoList_Route)
-app.use('/api',todoList_Route)
+
 
 
 app.get('/', (req, res) => {

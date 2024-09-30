@@ -39,4 +39,30 @@ exports.getAlltodo = async (req, res) => {
     }
 }
 
+// update todo
+exports.updateTodo = async (req, res) => {
+    const { id } = req.params;
+    const { title, description, status, dueDate } = req.body;
+
+    try {
+        
+        const update = { $set: { title, description, status, dueDate } };
+
+        const updatedTodo = await todoList_Schema.findByIdAndUpdate(id, update, {});
+
+        if (!updatedTodo) {
+            return res.status(404).json({ message: "Todo not found" });
+        }
+
+        return res.status(200).json({ message: "Todo updated successfully", data: updatedTodo });
+        console.log(updatedTodo)
+
+    } catch (error) {
+        console.error(error.message);
+        return res.status(500).json({ message: "Internal server error" });
+    }
+}
+
+
+
 
